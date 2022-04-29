@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import "./App.css";
 import schema from "./validation/formSchema";
 import * as yup from "yup";
+import axios from "axios";
 
 // create initial states
 const initialFormValues = {
@@ -36,6 +37,26 @@ const App = () => {
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
+
+  // const getOrder = () =>{
+  //   axios.get("https://reqres.in/api/orders")
+  //   .then(res =>{
+  //      setPizza(res.data.data);
+  //   }).catch(err => console.log(err))
+  // }
+  
+
+  // const postNewOrder = newOrder =>{
+  //   axios.post("https://reqres.in/api/orders", newOrder)
+  //   .then(res =>{
+  //     setPizza([res.data, ...pizza]);
+  //     console.log("It never gets here");
+  //     setFormValues(initialFormValues);
+  //   }).catch(err => console.log(err))
+  // }
+
+  
+  
   // validate input and return errors if present
   const validate = (name, value) =>{
     yup.reach(schema, name)
@@ -44,28 +65,32 @@ const App = () => {
     .catch(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
   }
 
+
   const inputChange = (name, value) => {
     // run validation
     validate(name, value);
-    setFormValues({
-      ...formValues,
-      [name]: value 
-    })
+    setFormValues({...formValues, [name]: value})
   }
 
   const formSubmit = () => {
     const newOrder = {
-      username: formValues.name.trim(),
+      name: formValues.name.trim(),
       email: formValues.email.trim(),
       size: formValues.size.trim(),
       toppings: ["pepperoni", "sausage", "mushrooms", "peppers"].filter(top => !!formValues[top]),
       gluten: formValues.gluten,
       special: formValues.special.trim()
     }
+    // should not need the following 3 lines when post is ready
     setPizza([formValues, ...pizza])
     setFormValues(initialFormValues)
     return newOrder;
     }
+  
+  //   useEffect(() =>{
+  //   // console logging correctly from here
+  //   getOrder()
+  // }, []) 
 
   useEffect(() => {
     schema.isValid(formValues)
@@ -87,7 +112,7 @@ const App = () => {
       <Form values={formValues} change={inputChange} submit={formSubmit} disabled={disabled} errors={formErrors}/>
     </Route>
     <Route path={"/confirmation"}>
-      <Confirmation details={formSubmit} />
+      <Confirmation />
     </Route>
     <Route exact path="/">
       <Home />

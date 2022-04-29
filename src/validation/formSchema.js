@@ -5,7 +5,7 @@ const formSchema = yup.object().shape({
     .string()
     .trim()
     .required("Username is required")
-    .min(2, "Name must be at least 2 characters"),
+    .min(2, "name must be at least 2 characters"),
     email: yup
     .string()
     .email("This must be an email address")

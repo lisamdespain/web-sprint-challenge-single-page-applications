@@ -28,7 +28,7 @@ export default function Form(props){
     id="name-input"
     value={values.name}
     onChange={onChange}
-    name="name-input"
+    name="name"
     type="text"
     />
 </label>
@@ -104,7 +104,7 @@ export default function Form(props){
     type="text"
     />
 </label>
-<button id="order-button" disabled = {disabled} onSubmit={onSubmit}>Submit</button>
+<button id="order-button" disabled = {disabled} onSubmit={onSubmit}>Add to Order</button>
 </form>
     );
 }
