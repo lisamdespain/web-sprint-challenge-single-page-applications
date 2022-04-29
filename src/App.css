@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+.errors{
+  color:red;
+  padding:.5rem;
+}
+label{
+  display:block;
+  margin:.5em;
+}
+input, select{
+  margin-left:1rem;
+}
+Link{
+  padding:5%;
+}
+.form-header{
+  background-color:gray;
+  margin:auto;
+  width:50%;
+}

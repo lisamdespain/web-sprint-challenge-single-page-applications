@@ -38,22 +38,23 @@ const App = () => {
   const [disabled, setDisabled] = useState(initialDisabled);
 
 
-  // const getOrder = () =>{
+  // const getPizza = () =>{
   //   axios.get("https://reqres.in/api/orders")
   //   .then(res =>{
   //      setPizza(res.data.data);
+  //      console.log(res.data.data);
   //   }).catch(err => console.log(err))
   // }
   
 
-  // const postNewOrder = newOrder =>{
-  //   axios.post("https://reqres.in/api/orders", newOrder)
-  //   .then(res =>{
-  //     setPizza([res.data, ...pizza]);
-  //     console.log("It never gets here");
-  //     setFormValues(initialFormValues);
-  //   }).catch(err => console.log(err))
-  // }
+  const postNewOrder = newOrder =>{
+    axios.post("https://reqres.in/api/orders", newOrder)
+    .then(res =>{
+      setPizza([res.data.data, ...pizza]);
+      console.log(newOrder);
+      setFormValues(initialFormValues);
+    }).catch(err => console.log(err))
+  }
 
   
   
@@ -77,14 +78,12 @@ const App = () => {
       name: formValues.name.trim(),
       email: formValues.email.trim(),
       size: formValues.size.trim(),
-      toppings: ["pepperoni", "sausage", "mushrooms", "peppers"].filter(top => !!formValues[top]),
+      toppings: ["pepperoni", "sausage", "mushrooms", "peppers"].filter(tops => !!formValues[tops]),
       gluten: formValues.gluten,
       special: formValues.special.trim()
     }
     // should not need the following 3 lines when post is ready
-    setPizza([formValues, ...pizza])
-    setFormValues(initialFormValues)
-    return newOrder;
+    postNewOrder();
     }
   
   //   useEffect(() =>{
@@ -102,8 +101,8 @@ const App = () => {
     <nav>
       <h1>Lambda Eats</h1>
       <p>Welcome to pizza from heaven!</p>
-      <Link to="/">Home</Link>
-      <Link to="/pizza">Build Your Pizza</Link>
+      <p><Link to="/">Home</Link></p>
+      <p><Link to="/pizza">Build Your Pizza</Link></p>
     
     </nav>
     
