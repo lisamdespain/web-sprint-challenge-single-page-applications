@@ -11,7 +11,6 @@ describe("Creating a new pizza order", () =>{
     const sausageInput = () => cy.get("input[name=sausage]");
     const mushroomsInput = () => cy.get("input[name=mushrooms]");
     const peppersInput = () => cy.get("input[name=peppers]");
-    const glutenInput = () => cy.get("input[name=gluten]");
     const specialInput = () => cy.get("input[name=special]");
     const submitButton = () => cy.get(`button[id="order-button"]`);
 
@@ -28,7 +27,6 @@ describe("Creating a new pizza order", () =>{
         sausageInput().should("exist");
         mushroomsInput().should("exist");
         peppersInput().should("exist");
-        glutenInput().should("exist");
         specialInput().should("exist");
         submitButton().should("exist");
         cy.contains(/order/i).should("exist");
@@ -63,10 +61,6 @@ describe("Creating a new pizza order", () =>{
             .check()
             .should("be.checked");
             peppersInput()
-            .should("not.be.checked")
-            .check()
-            .should("be.checked");
-            glutenInput()
             .should("not.be.checked")
             .check()
             .should("be.checked");

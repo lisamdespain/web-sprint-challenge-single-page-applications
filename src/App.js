@@ -17,8 +17,7 @@ const initialFormValues = {
   sausage: false,
   mushrooms: false,
   peppers: false,
-  gluten: false,
-  instructions: ''
+  special: ''
 }
 
 const initialFormErrors ={
@@ -27,36 +26,37 @@ const initialFormErrors ={
   size: ''
 }
 
-const initialPizza = [];
+const initialOrders = [];
 const initialDisabled = [];
 
 const App = () => {
   // set states
-  const [pizza, setPizza] = useState(initialPizza);
+  const [orders, setOrders] = useState(initialOrders);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
 
-  // const getPizza = () =>{
+  // const getOrders = () =>{
+  //   console.log("Hello from inside get order")
   //   axios.get("https://reqres.in/api/orders")
   //   .then(res =>{
-  //      setPizza(res.data.data);
-  //      console.log(res.data.data);
+  //     setOrders(res.data.data);
   //   }).catch(err => console.log(err))
   // }
   
-
-  const postNewOrder = newOrder =>{
-    axios.post("https://reqres.in/api/orders", newOrder)
+  // useEffect(() =>{
+  //   getOrders()
+  // }, []) 
+  
+  const postNewOrder = testOrder => {
+    axios.post("https://reqres.in/api/orders", testOrder)
     .then(res =>{
-      setPizza([res.data.data, ...pizza]);
-      console.log(newOrder);
+      console.log(res.data);
+      setOrders([res.data, ...orders]);
       setFormValues(initialFormValues);
     }).catch(err => console.log(err))
   }
-
-  
   
   // validate input and return errors if present
   const validate = (name, value) =>{
@@ -72,24 +72,25 @@ const App = () => {
     validate(name, value);
     setFormValues({...formValues, [name]: value})
   }
+  
+
 
   const formSubmit = () => {
     const newOrder = {
       name: formValues.name.trim(),
       email: formValues.email.trim(),
-      size: formValues.size.trim(),
+      size: formValues.size,
       toppings: ["pepperoni", "sausage", "mushrooms", "peppers"].filter(tops => !!formValues[tops]),
       gluten: formValues.gluten,
       special: formValues.special.trim()
     }
-    // should not need the following 3 lines when post is ready
-    postNewOrder();
+    // does newOrder really need to be passed as a parameter?
+    postNewOrder(newOrder);
     }
   
-  //   useEffect(() =>{
-  //   // console logging correctly from here
-  //   getOrder()
-  // }, []) 
+    
+    
+  
 
   useEffect(() => {
     schema.isValid(formValues)

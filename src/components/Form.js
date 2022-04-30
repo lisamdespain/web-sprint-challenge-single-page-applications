@@ -42,11 +42,12 @@ export default function Form(props){
 </label>
 <div className="form-header">
 <h3>Select the pizza size</h3></div>
-<label id="size-dropdown">Pizza size
+<label>Pizza size
           <select
             onChange={onChange}
             value={values.size}
             name='size'
+            id="size-dropdown"
           >
             <option value=''>- Select an option -</option>
             <option value='small'>Small</option>
@@ -92,16 +93,9 @@ export default function Form(props){
     </label>
     <div className="form-header">
 <h3>Additional Options</h3></div>
-<label>Click for gluten-free option:
-    <input 
-    value={values.gluten}
-    onChange={onChange}
-    name="gluten"
-    type="checkbox"
-    />
-</label>
+
 <label>Additional Instructions:
-<input 
+    <input 
     id="special-text"
     value={values.special}
     onChange={onChange}
@@ -109,6 +103,7 @@ export default function Form(props){
     type="text"
     />
 </label>
+
 <button id="order-button" disabled = {disabled} onSubmit={onSubmit}>Add to Order</button>
 </form>
     );
